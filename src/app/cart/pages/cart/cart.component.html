@@ -1,0 +1,44 @@
+<div class="container mt-5">
+    <div *ngIf="cartService.cartItems().length > 0 else noItem" class="CartContainer mx-auto">
+        <div class="Header">
+            <h3 class="Heading">Shopping Cart</h3>
+
+        </div>
+
+        <ng-container *ngFor="let row of cartService.cartItems(); let i =index">
+            <div class="row">
+                <div class="col-md-1">
+                    <img [src]="row.image" style="width:100%" />
+                </div>
+                <div class="col-md-9">
+                    <h1 class="title">{{row.title}}</h1>
+                    <p>{{row.description}}</p>
+                </div>
+                <div class="col-md-2 end">
+                    <div class="amount">{{row.price | currency}}</div>
+                    <div class="save"><u>Save for later</u></div>
+                    <div (click)="remove(i)" class="remove"><u>Remove</u></div>
+                </div>
+            </div>
+        </ng-container>
+
+
+        <hr>
+        <div class="checkout">
+            <div class="total">
+                <div>
+                    <div class="Subtotal">Sub-Total</div>
+                    <div class="items">{{cartService.cartItems().length}} items</div>
+                </div>
+                <div class="total-amount">{{this.cartService.subTotal()}}</div>
+            </div>
+            <div class="d-grid gap-2">                
+                <button class="btn btn-block btn-primary" (click)="checkOut()">Checkout</button>
+            </div>
+        </div>
+    </div>
+    <ng-template #noItem>
+        <h1>Cart is Empty</h1>
+    </ng-template>
+
+</div>
